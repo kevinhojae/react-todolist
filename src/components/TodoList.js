@@ -1,27 +1,22 @@
 import Todo from "./TodoItem";
 
-function TodoList({ todos, selectedFilter }) {
-	return (
-		<div className="box">
-			{todos.length !== 0 ? (
-				todos.map((todo) => {
-					if (selectedFilter === "all") {
-						return <Todo todo={todo} key={todo.id} />;
-					} else if (selectedFilter === "not done") {
-						return !todo.isChecked ? (
-							<Todo todo={todo} key={todo.id} />
-						) : null;
-					} else {
-						return todo.isChecked ? (
-							<Todo todo={todo} key={todo.id} />
-						) : null;
-					}
-				})
-			) : (
-				<p className="empty-text">Well done!</p>
-			)}
-		</div>
-	);
+function TodoList({ todos }) {
+  // Early Return
+  if (todos.length === 0) {
+    return (
+      <div>
+        <p className="empty-text">Well done!</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="box">
+      {todos.map((todo) => (
+        <Todo todo={todo} key={todo.id} />
+      ))}
+    </div>
+  );
 }
 
 export default TodoList;
