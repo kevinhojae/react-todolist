@@ -1,0 +1,101 @@
+body {
+	margin: 0;
+	font-family: "Noto Sans KR";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
+}
+
+div.todo {
+	border: 1px solid lightgray;
+	align-content: center;
+	box-shadow: 0 0 5px #dedede;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-left: 10px;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+}
+div.box {
+	border: 0.7px solid lightgray;
+
+	margin-top: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+div.todo-input {
+	align-items: center;
+	align-content: center;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
+button.edit {
+	margin-left: auto;
+	margin-right: 10px;
+	background-color: transparent;
+	border-color: transparent;
+	border-width: 0px;
+}
+
+button.delete {
+	margin-right: 10px;
+	background-color: transparent;
+	border-color: transparent;
+	border-width: 0px;
+}
+
+p.todo-text {
+	overflow: "hidden";
+	text-overflow: "ellipsis";
+	font-size: 15px;
+}
+p.empty-text {
+	font-weight: bold;
+	font-size: 15px;
+	color: gray;
+	margin-left: 10px;
+}
+p.count {
+	margin-left: 10px;
+}
+input {
+	font-size: 15px;
+}
+button.create-todo {
+	font-size: 15px;
+	margin-left: 5px;
+	padding-bottom: 0px;
+}
+button.filter-button {
+	margin-left: 10px;
+	margin-top: 20px;
+	border-color: lightgray;
+}
+input.todo-check {
+	margin-right: 5px;
+}
+table.count-table {
+	margin-left: 10px;
+	/* align cell contents in the center */
+	text-align: center;
+	border-collapse: collapse;
+	border-spacing: 10px;
+}
+table.count-table thead {
+	border-bottom: 1px solid lightgray;
+}
+
+table.count-table thead tr th {
+	padding-right: 10px;
+	padding-left: 10px;
+}
