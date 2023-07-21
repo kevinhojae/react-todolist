@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-const Todo = ({ todo, onUpdateTodolist, onUpdateCount }) => {
+const Todo = ({ todo, onClickCheckbox, onDelete, updateTodolist }) => {
   const [todoInput, setTodoInput] = useState(todo.task);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -12,42 +12,7 @@ const Todo = ({ todo, onUpdateTodolist, onUpdateCount }) => {
     }
   }, [isEditing]);
 
-  const handleClickCheckbox = () => {
-    // Q. onUpdateTodolist, onUpdateCount로 상태를 두 번 바꿔주게 되면, 두 번 렌더링 되는 것은 아닌지?
-    onUpdateTodolist((prevTodos) =>
-      prevTodos.map((prevTodo) =>
-        prevTodo.id === todo.id
-          ? { ...prevTodo, isCompleted: !todo.isCompleted }
-          : prevTodo,
-      ),
-    );
-    onUpdateCount((prevCount) => {
-      return {
-        ...prevCount,
-        completed: todo.isCompleted
-          ? prevCount.completed - 1
-          : prevCount.completed + 1,
-        notCompleted: todo.isCompleted
-          ? prevCount.notCompleted + 1
-          : prevCount.notCompleted - 1,
-      };
-    });
-  };
-
-  const handleDelete = () => {
-    onUpdateTodolist((prevTodolist) =>
-      prevTodolist.filter((item) => item.id !== todo.id),
-    );
-    onUpdateCount((prevCount) => ({
-      completed: todo.isCompleted
-        ? prevCount.completed - 1
-        : prevCount.notCompleted,
-      notCompleted: todo.isCompleted
-        ? prevCount.completed
-        : prevCount.notCompleted - 1,
-    }));
-  };
-
+  // edit의 경우, 여러 개를 동시에 수정할 수 있어야 하므로 Todo component 내에서 관리
   const handleStartEdit = () => {
     setIsEditing(true);
     console.log("start edit");
@@ -55,7 +20,7 @@ const Todo = ({ todo, onUpdateTodolist, onUpdateCount }) => {
 
   const handleSaveEdit = () => {
     setIsEditing(false);
-    onUpdateTodolist((prevTodolist) =>
+    updateTodolist((prevTodolist) =>
       prevTodolist.map((prevTodo) =>
         prevTodo.id === todo.id ? { ...prevTodo, task: todoInput } : prevTodo,
       ),
@@ -70,7 +35,7 @@ const Todo = ({ todo, onUpdateTodolist, onUpdateCount }) => {
           className="todo-check"
           type="checkbox"
           checked={todo.isCompleted}
-          onClick={handleClickCheckbox}
+          onClick={() => onClickCheckbox(todo)}
           readOnly
         />
         {isEditing ? (
@@ -95,7 +60,7 @@ const Todo = ({ todo, onUpdateTodolist, onUpdateCount }) => {
             </button>
           </>
         )}
-        <button className="delete" onClick={handleDelete}>
+        <button className="delete" onClick={() => onDelete(todo)}>
           🗑️
         </button>
       </div>

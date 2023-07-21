@@ -13,6 +13,7 @@ const CreateTodo = ({ onAddTodo, onAddCount }) => {
       return { ...prev, notCompleted: prev.notCompleted + 1 };
     });
     idRef.current += 1;
+    setTodoInput("");
   };
 
   return (

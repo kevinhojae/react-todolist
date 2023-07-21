@@ -7,8 +7,8 @@ import CountTodo from "./CountTodo";
 export default function TodoListContainer({
   todoList,
   todoCount,
-  onUpdateTodolist,
-  onUpdateCount,
+  updateTodolist,
+  updateCount,
 }) {
   const [selectedFilter, setSelectedFilter] = useState(FILTER_OPTION.ALL);
   const [filteredTodoList, setFilteredTodoList] = useState(todoList);
@@ -16,7 +16,7 @@ export default function TodoListContainer({
   useEffect(() => {
     setFilteredTodoList(
       todoList.filter((todo) => {
-        if (selectedFilter === FILTER_OPTION.NOT_DONE) {
+        if (selectedFilter === FILTER_OPTION.NOT_COMPLETED) {
           return todo.isCompleted === false;
         }
         if (selectedFilter === FILTER_OPTION.COMPLETED) {
@@ -36,8 +36,8 @@ export default function TodoListContainer({
       />
       <TodoList
         todos={filteredTodoList}
-        onUpdateTodolist={onUpdateTodolist}
-        onUpdateCount={onUpdateCount}
+        updateTodolist={updateTodolist}
+        updateCount={updateCount}
       />
       <CountTodo count={todoCount} />
     </div>

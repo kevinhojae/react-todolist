@@ -28,8 +28,8 @@ function App() {
       <TodoListContainer
         todoList={todoList}
         todoCount={todoCount}
-        onUpdateTodolist={setTodoList}
-        onUpdateCount={setTodoCount}
+        updateTodolist={setTodoList}
+        updateCount={setTodoCount}
       />
     </>
   );
