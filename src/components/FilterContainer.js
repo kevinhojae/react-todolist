@@ -1,5 +1,5 @@
 import { FILTER_OPTION } from "../App";
-function FilterContainer({ selectedFilter, onSelectFilter }) {
+const FilterContainer = ({ selectedFilter, onSelectFilter }) => {
   const filterOption = [
     FILTER_OPTION.ALL,
     FILTER_OPTION.COMPLETED,
@@ -25,6 +25,6 @@ function FilterContainer({ selectedFilter, onSelectFilter }) {
       })}
     </div>
   );
-}
+};
 
 export default FilterContainer;

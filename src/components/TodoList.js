@@ -1,6 +1,6 @@
 import Todo from "./TodoItem";
 
-function TodoList({ todos, updateTodolist, updateCount }) {
+const TodoList = ({ todos, updateTodolist, updateCount }) => {
   // Early Return
   if (todos.length === 0) {
     return (
@@ -58,6 +58,6 @@ function TodoList({ todos, updateTodolist, updateCount }) {
       ))}
     </div>
   );
-}
+};
 
 export default TodoList;

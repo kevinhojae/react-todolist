@@ -1,4 +1,4 @@
-function CountTodo({ count }) {
+const CountTodo = ({ count }) => {
   return (
     <div className="box">
       <table className="count-table">
@@ -25,6 +25,6 @@ function CountTodo({ count }) {
       </table>
     </div>
   );
-}
+};
 
 export default CountTodo;

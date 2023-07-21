@@ -4,12 +4,12 @@ import { FILTER_OPTION } from "../App";
 import TodoList from "./TodoList";
 import CountTodo from "./CountTodo";
 
-export default function TodoListContainer({
+const TodoListContainer = ({
   todoList,
   todoCount,
   updateTodolist,
   updateCount,
-}) {
+}) => {
   const [selectedFilter, setSelectedFilter] = useState(FILTER_OPTION.ALL);
   const [filteredTodoList, setFilteredTodoList] = useState(todoList);
 
@@ -42,4 +42,6 @@ export default function TodoListContainer({
       <CountTodo count={todoCount} />
     </div>
   );
-}
+};
+
+export default TodoListContainer;

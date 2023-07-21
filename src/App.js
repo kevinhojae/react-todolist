@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// import logo from "./assets/logo.svg";
+import logo from "./assets/logo.svg";
 import "./style/App.css";
 import CreateTodo from "./components/CreateTodo";
 import TodoListContainer from "./components/TodoListContainer";
@@ -24,6 +24,10 @@ function App() {
 
   return (
     <>
+      <header className="header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1 className="title">ToDo List</h1>
+      </header>
       <CreateTodo onAddTodo={setTodoList} onAddCount={setTodoCount} />
       <TodoListContainer
         todoList={todoList}
