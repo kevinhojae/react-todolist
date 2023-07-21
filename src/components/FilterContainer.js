@@ -7,7 +7,7 @@ function FilterContainer({ selectedFilter, onSelectFilter }) {
   ];
 
   return (
-    <div>
+    <div className="filter-container">
       {filterOption.map((filter) => {
         return (
           <button
