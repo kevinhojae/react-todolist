@@ -1,15 +1,6 @@
 import Todo from "./TodoItem";
 
 const TodoList = ({ todos, updateTodolist, updateCount }) => {
-  // Early Return
-  if (todos.length === 0) {
-    return (
-      <div className="box">
-        <p className="empty-text">Well done!</p>
-      </div>
-    );
-  }
-
   // ClickCheckbox와 Delete는 필터링된 리스트 내에서 일어나는 일이므로, TodoList에서 관리
   const handleClickCheckbox = (selectedTodo) => {
     // Q. onUpdateTodolist, onUpdateCount로 상태를 두 번 바꿔주게 되면, 두 번 렌더링 되는 것은 아닌지?
@@ -44,6 +35,15 @@ const TodoList = ({ todos, updateTodolist, updateCount }) => {
         : prevCount.notCompleted - 1,
     }));
   };
+
+  // Early Return
+  if (todos.length === 0) {
+    return (
+      <div className="box">
+        <p className="empty-text">Well done!</p>
+      </div>
+    );
+  }
 
   return (
     <div className="box">
