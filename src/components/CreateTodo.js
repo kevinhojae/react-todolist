@@ -1,17 +1,14 @@
 import React, { useRef, useState } from "react";
 
-const CreateTodo = ({ onAddTodo, onAddCount }) => {
+const CreateTodo = ({ onAddTodo }) => {
   const idRef = useRef(0);
 
   const [todoInput, setTodoInput] = useState("");
 
   const handleAddTodo = () => {
     onAddTodo((prev) =>
-      prev.concat({ id: idRef.current, task: todoInput, isCompleted: false }),
+      prev.concat({ id: idRef.current, task: todoInput, isCompleted: false })
     );
-    onAddCount((prev) => {
-      return { ...prev, notCompleted: prev.notCompleted + 1 };
-    });
     idRef.current += 1;
     setTodoInput("");
   };

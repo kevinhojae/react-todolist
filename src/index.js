@@ -3,12 +3,15 @@ import ReactDOM from "react-dom/client";
 import "./style/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import TodoListService from "./services/todo-list.service";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+const todoListService = new TodoListService();
+
 root.render(
   <React.StrictMode>
-    <App />
+    <App todoListService={todoListService} />
   </React.StrictMode>
 );
 
