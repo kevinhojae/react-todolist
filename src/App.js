@@ -9,7 +9,7 @@ export const TodoContext = React.createContext(null);
 
 export const FILTER_OPTION = {
   ALL: "ALL",
-  NOT_DONE: "NOT_DONE",
+  NOT_COMPLETED: "NOT_COMPLETED",
   COMPLETED: "COMPLETED",
 };
 

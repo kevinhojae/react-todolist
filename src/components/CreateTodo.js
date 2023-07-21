@@ -6,9 +6,11 @@ const CreateTodo = ({ onAddTodo, onAddCount }) => {
   const [todoInput, setTodoInput] = useState("");
 
   const handleAddTodo = () => {
-    onAddTodo((prev) => prev.concat({ id: idRef.current, task: todoInput }));
+    onAddTodo((prev) =>
+      prev.concat({ id: idRef.current, task: todoInput, isCompleted: false }),
+    );
     onAddCount((prev) => {
-      return { ...prev, notCompleted: prev.count + 1 };
+      return { ...prev, notCompleted: prev.notCompleted + 1 };
     });
     idRef.current += 1;
   };

@@ -5,20 +5,20 @@ function CountTodo({ count }) {
         <thead>
           <tr>
             <th>Total</th>
-            <th>Not done</th>
-            <th>Done</th>
+            <th>Not completed</th>
+            <th>Completed</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <b>{count.done + count.notdone}</b>
+              <b>{count.completed + count.notCompleted}</b>
             </td>
             <td>
-              <b>{count.notdone}</b>
+              <b>{count.notCompleted}</b>
             </td>
             <td>
-              <b>{count.done}</b>
+              <b>{count.completed}</b>
             </td>
           </tr>
         </tbody>

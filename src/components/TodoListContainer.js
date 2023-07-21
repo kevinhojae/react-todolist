@@ -17,10 +17,10 @@ export default function TodoListContainer({
     setFilteredTodoList(
       todoList.filter((todo) => {
         if (selectedFilter === FILTER_OPTION.NOT_DONE) {
-          return todo.completed === false;
+          return todo.isCompleted === false;
         }
         if (selectedFilter === FILTER_OPTION.COMPLETED) {
-          return todo.completed === true;
+          return todo.isCompleted === true;
         }
 
         return todo;

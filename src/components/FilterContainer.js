@@ -3,7 +3,7 @@ function FilterContainer({ selectedFilter, onSelectFilter }) {
   const filterOption = [
     FILTER_OPTION.ALL,
     FILTER_OPTION.COMPLETED,
-    FILTER_OPTION.NOT_DONE,
+    FILTER_OPTION.NOT_COMPLETED,
   ];
 
   return (

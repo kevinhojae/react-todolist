@@ -13,20 +13,23 @@ const Todo = ({ todo, onUpdateTodolist, onUpdateCount }) => {
   }, [isEditing]);
 
   const handleClickCheckbox = () => {
+    // Q. onUpdateTodolist, onUpdateCount로 상태를 두 번 바꿔주게 되면, 두 번 렌더링 되는 것은 아닌지?
     onUpdateTodolist((prevTodos) =>
       prevTodos.map((prevTodo) =>
         prevTodo.id === todo.id
-          ? { ...prevTodo, completed: todo.completed }
+          ? { ...prevTodo, isCompleted: !todo.isCompleted }
           : prevTodo,
       ),
     );
     onUpdateCount((prevCount) => {
       return {
         ...prevCount,
-        completed: todo.completed ? prevCount.done + 1 : prevCount.done - 1,
-        notCompleted: todo.completed
-          ? prevCount.notdone - 1
-          : prevCount.notdone + 1,
+        completed: todo.isCompleted
+          ? prevCount.completed - 1
+          : prevCount.completed + 1,
+        notCompleted: todo.isCompleted
+          ? prevCount.notCompleted + 1
+          : prevCount.notCompleted - 1,
       };
     });
   };
@@ -36,10 +39,10 @@ const Todo = ({ todo, onUpdateTodolist, onUpdateCount }) => {
       prevTodolist.filter((item) => item.id !== todo.id),
     );
     onUpdateCount((prevCount) => ({
-      completed: todo.completed
+      completed: todo.isCompleted
         ? prevCount.completed - 1
         : prevCount.notCompleted,
-      notCompleted: todo.completed
+      notCompleted: todo.isCompleted
         ? prevCount.completed
         : prevCount.notCompleted - 1,
     }));
@@ -66,7 +69,7 @@ const Todo = ({ todo, onUpdateTodolist, onUpdateCount }) => {
         <input
           className="todo-check"
           type="checkbox"
-          checked={todo.completed}
+          checked={todo.isCompleted}
           onClick={handleClickCheckbox}
           readOnly
         />
