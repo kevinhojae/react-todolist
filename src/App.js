@@ -1,65 +1,9 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 
-import logo from "./assets/logo.svg";
+// import logo from "./assets/logo.svg";
 import "./style/App.css";
 import CreateTodo from "./components/CreateTodo";
-import FilterButtonRow from "./components/FilterButtonRow";
-import TodoList from "./components/TodoList";
-import CountTodo from "./components/CountTodo";
 import TodoListContainer from "./components/TodoListContainer";
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "CREATE":
-      return {
-        ...state,
-        todos: state.todos.concat({
-          id: action.id,
-          text: action.text,
-          isChecked: action.isChecked,
-        }),
-        count: {
-          ...state.count,
-          notdone: state.count.notdone + 1,
-        },
-      };
-    case "SAVE-EDIT":
-      return {
-        ...state,
-        todos: state.todos.map((todo) =>
-          todo.id === action.id ? { ...todo, text: action.text } : todo
-        ),
-      };
-    case "DELETE":
-      return {
-        ...state,
-        todos: state.todos.filter((todo) => todo.id !== action.id),
-        count: {
-          done: action.isChecked ? state.count.done - 1 : state.count.done,
-          notdone: action.isChecked
-            ? state.count.notdone
-            : state.count.notdone - 1,
-        },
-      };
-    case "CLICK-CHECKBOX":
-      return {
-        ...state,
-        todos: state.todos.map((todo) =>
-          todo.id === action.id
-            ? { ...todo, isChecked: action.isChecked }
-            : todo
-        ),
-        count: {
-          done: action.isChecked ? state.count.done + 1 : state.count.done - 1,
-          notdone: action.isChecked
-            ? state.count.notdone - 1
-            : state.count.notdone + 1,
-        },
-      };
-    default:
-      return state;
-  }
-}
 
 export const TodoContext = React.createContext(null);
 
@@ -73,13 +17,20 @@ export const FILTER_OPTION = {
 // 2. UI / Presenter / Service separation of concern
 function App() {
   const [todoList, setTodoList] = useState([]);
+  const [todoCount, setTodoCount] = useState({
+    completed: 0,
+    notCompleted: 0,
+  });
 
   return (
     <>
-      <CreateTodo onAddTodo={setTodoList} />
-      <TodoListContainer todoList={todoList} />
-
-      {/* <CountTodo count={count} /> */}
+      <CreateTodo onAddTodo={setTodoList} onAddCount={setTodoCount} />
+      <TodoListContainer
+        todoList={todoList}
+        todoCount={todoCount}
+        onUpdateTodolist={setTodoList}
+        onUpdateCount={setTodoCount}
+      />
     </>
   );
 }

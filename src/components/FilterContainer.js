@@ -1,5 +1,5 @@
 import { FILTER_OPTION } from "../App";
-function FilterButtonRow({ selectedFilter, onSelectFilter }) {
+function FilterContainer({ selectedFilter, onSelectFilter }) {
   const filterOption = [
     FILTER_OPTION.ALL,
     FILTER_OPTION.COMPLETED,
@@ -27,4 +27,4 @@ function FilterButtonRow({ selectedFilter, onSelectFilter }) {
   );
 }
 
-export default FilterButtonRow;
+export default FilterContainer;

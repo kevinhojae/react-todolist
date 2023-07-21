@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
-import FilterButtonRow from "./FilterButtonRow";
+import FilterContainer from "./FilterContainer";
 import { FILTER_OPTION } from "../App";
 import TodoList from "./TodoList";
+import CountTodo from "./CountTodo";
 
-export default function TodoListContainer({ todoList }) {
+export default function TodoListContainer({
+  todoList,
+  todoCount,
+  onUpdateTodolist,
+  onUpdateCount,
+}) {
   const [selectedFilter, setSelectedFilter] = useState(FILTER_OPTION.ALL);
   const [filteredTodoList, setFilteredTodoList] = useState(todoList);
 
@@ -18,17 +24,22 @@ export default function TodoListContainer({ todoList }) {
         }
 
         return todo;
-      })
+      }),
     );
   }, [selectedFilter, todoList]);
 
   return (
     <div>
-      <FilterButtonRow
+      <FilterContainer
         selectedFilter={selectedFilter}
         onSelectFilter={setSelectedFilter}
       />
-      <TodoList todos={filteredTodoList} />
+      <TodoList
+        todos={filteredTodoList}
+        onUpdateTodolist={onUpdateTodolist}
+        onUpdateCount={onUpdateCount}
+      />
+      <CountTodo count={todoCount} />
     </div>
   );
 }

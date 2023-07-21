@@ -1,10 +1,7 @@
-import { TodoContext } from "../App";
-import { useContext, useState, useRef, useEffect } from "react";
-import useInputs from "../hooks/useInputs";
+import { useState, useRef, useEffect } from "react";
 
-const Todo = ({ todo }) => {
-  const dispatch = useContext(TodoContext);
-  const [{ text }, onChange] = useInputs(todo.text);
+const Todo = ({ todo, onUpdateTodolist, onUpdateCount }) => {
+  const [todoInput, setTodoInput] = useState(todo.task);
 
   const [isEditing, setIsEditing] = useState(false);
   const editSpace = useRef(null);
@@ -15,35 +12,51 @@ const Todo = ({ todo }) => {
     }
   }, [isEditing]);
 
-  const onClickCheckbox = () => {
-    dispatch({
-      type: "CLICK-CHECKBOX",
-      ...todo,
-      id: todo.id,
-      isChecked: !todo.isChecked,
+  const handleClickCheckbox = () => {
+    onUpdateTodolist((prevTodos) =>
+      prevTodos.map((prevTodo) =>
+        prevTodo.id === todo.id
+          ? { ...prevTodo, completed: todo.completed }
+          : prevTodo,
+      ),
+    );
+    onUpdateCount((prevCount) => {
+      return {
+        ...prevCount,
+        completed: todo.completed ? prevCount.done + 1 : prevCount.done - 1,
+        notCompleted: todo.completed
+          ? prevCount.notdone - 1
+          : prevCount.notdone + 1,
+      };
     });
   };
 
-  const onDelete = () => {
-    dispatch({
-      type: "DELETE",
-      id: todo.id,
-      isChecked: todo.isChecked,
-    });
+  const handleDelete = () => {
+    onUpdateTodolist((prevTodolist) =>
+      prevTodolist.filter((item) => item.id !== todo.id),
+    );
+    onUpdateCount((prevCount) => ({
+      completed: todo.completed
+        ? prevCount.completed - 1
+        : prevCount.notCompleted,
+      notCompleted: todo.completed
+        ? prevCount.completed
+        : prevCount.notCompleted - 1,
+    }));
   };
 
-  const onStartEdit = () => {
+  const handleStartEdit = () => {
     setIsEditing(true);
     console.log("start edit");
   };
 
-  const onSaveEdit = () => {
+  const handleSaveEdit = () => {
     setIsEditing(false);
-    dispatch({
-      type: "SAVE-EDIT",
-      id: todo.id,
-      text: text,
-    });
+    onUpdateTodolist((prevTodolist) =>
+      prevTodolist.map((prevTodo) =>
+        prevTodo.id === todo.id ? { ...prevTodo, task: todoInput } : prevTodo,
+      ),
+    );
     console.log("save edit");
   };
 
@@ -53,8 +66,8 @@ const Todo = ({ todo }) => {
         <input
           className="todo-check"
           type="checkbox"
-          checked={todo.isChecked}
-          onClick={onClickCheckbox}
+          checked={todo.completed}
+          onClick={handleClickCheckbox}
           readOnly
         />
         {isEditing ? (
@@ -62,29 +75,28 @@ const Todo = ({ todo }) => {
             <p>
               <input
                 className="edit-text"
-                value={text}
-                onChange={onChange}
+                value={todoInput}
+                onChange={(e) => setTodoInput(e.target.value)}
                 ref={editSpace}
               />
             </p>
-            <button className="edit" onClick={onSaveEdit}>
+            <button className="edit" onClick={handleSaveEdit}>
               📥
             </button>
           </>
         ) : (
           <>
             <p className="todo-text">{todo.task}</p>
-            <button className="edit" onClick={onStartEdit}>
+            <button className="edit" onClick={handleStartEdit}>
               ✏️
             </button>
           </>
         )}
-        <button className="delete" onClick={onDelete}>
+        <button className="delete" onClick={handleDelete}>
           🗑️
         </button>
       </div>
     </>
   );
 };
-
 export default Todo;
