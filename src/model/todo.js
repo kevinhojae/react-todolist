@@ -5,11 +5,17 @@ export default class Todo {
     this.id = Todo.id;
     this.task = task;
     this.isCompleted = false;
+    this.isEditing = false;
 
     Todo.id++;
 
     return this;
   }
+
+  getIsEditing(){
+    return this.isEditing;
+  }
+  
 
   updateTodo(task) {
     this.task = task;
@@ -18,6 +24,11 @@ export default class Todo {
 
   toggleComplete() {
     this.isCompleted = !this.isCompleted;
+    return this;
+  }
+
+  toggleEdit() {
+    this.isEditing = !this.isEditing;
     return this;
   }
 }

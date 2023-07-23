@@ -1,16 +1,18 @@
 import Todo from "./TodoItem";
+import React, { useContext } from "react";
+import { TodoContext } from "../App";
 
-const TodoList = ({ todos, onCompleteTodo, updateTodolist }) => {
-  // ClickCheckbox와 Delete는 필터링된 리스트 내에서 일어나는 일이므로, TodoList에서 관리
-
-  const handleDelete = (selectedTodo) => {
-    updateTodolist((prevTodolist) =>
-      prevTodolist.filter((item) => item.id !== selectedTodo.id)
-    );
-  };
+const TodoList = ({
+  filteredTodoList,
+  updateTodo,
+  removeTodo,
+  completeTodo,
+  editTodo,
+}) => {
+  const todoList = useContext(TodoContext);
 
   // Early Return
-  if (todos.length === 0) {
+  if (todoList.length === 0) {
     return (
       <div className="box">
         <p className="empty-text">Well done!</p>
@@ -20,12 +22,13 @@ const TodoList = ({ todos, onCompleteTodo, updateTodolist }) => {
 
   return (
     <div className="box">
-      {todos.map((todo) => (
+      {filteredTodoList.map((todo) => (
         <Todo
-          todo={todo}
-          onComplete={onCompleteTodo}
-          onDelete={handleDelete}
-          updateTodolist={updateTodolist}
+          todo={todo} // 선택한 todo의 id를 이용하기 위해 Todo 컴포넌트에 todo를 전달
+          updateTodo={updateTodo}
+          removeTodo={removeTodo}
+          completeTodo={completeTodo}
+          editTodo={editTodo}
           key={todo.id}
         />
       ))}

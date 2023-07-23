@@ -1,22 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FilterContainer from "./FilterContainer";
 import { FILTER_OPTION } from "../App";
 import TodoList from "./TodoList";
+import { TodoContext } from "../App";
 
-const TodoListContainer = ({ todoList, updateTodolist, updateCount }) => {
+const TodoListContainer = ({
+  updateTodo,
+  removeTodo,
+  completeTodo,
+  editTodo,
+
+  // updateCount,
+}) => {
+  const  todoList  = useContext(TodoContext);
   const [selectedFilter, setSelectedFilter] = useState(FILTER_OPTION.ALL);
   const [filteredTodoList, setFilteredTodoList] = useState(todoList);
-
-  const onCompleteTodo = (selectedTodo) => {
-    // Q. onUpdateTodolist, onUpdateCount로 상태를 두 번 바꿔주게 되면, 두 번 렌더링 되는 것은 아닌지?
-    updateTodolist((prevTodos) =>
-      prevTodos.map((prevTodo) =>
-        prevTodo.id === selectedTodo.id
-          ? { ...prevTodo, isCompleted: !selectedTodo.isCompleted }
-          : prevTodo
-      )
-    );
-  };
 
   useEffect(() => {
     setFilteredTodoList(
@@ -29,7 +27,7 @@ const TodoListContainer = ({ todoList, updateTodolist, updateCount }) => {
         }
 
         return todo;
-      })
+      }),
     );
   }, [selectedFilter, todoList]);
 
@@ -40,9 +38,11 @@ const TodoListContainer = ({ todoList, updateTodolist, updateCount }) => {
         onSelectFilter={setSelectedFilter}
       />
       <TodoList
-        todos={filteredTodoList}
-        updateTodolist={updateTodolist}
-        onCompleteTodo={onCompleteTodo}
+        filteredTodoList={filteredTodoList}
+        updateTodo={updateTodo}
+        removeTodo={removeTodo}
+        completeTodo={completeTodo}
+        editTodo={editTodo}
       />
     </div>
   );

@@ -3,19 +3,26 @@ export default class TodoListService {
     setTodoList((prev) => prev.concat(todo));
   }
 
-  removeTodo(id) {
-    this.todoList = this.todoList.filter((todo) => todo.id === id);
+  // Q. remove, update, complete도 마찬가지로 메소드가 실행될 때 화면이 업데이트 되어야 하므로 return this가 아닌 setTodoList를 받아야 하지 않나요?
+  removeTodo(todoList, id, setTodoList) {
+    setTodoList(todoList.filter((todo) => todo.id !== id));
   }
 
-  updateTodo(id, task) {
-    const todo = this.todoList.find((todo) => todo.id === id);
-    todo.updateTodo(task);
-    return this.todoList;
+  updateTodo(todoList, id, task, setTodoList) {
+    setTodoList(
+      todoList.map((todo) => (todo.id === id ? todo.updateTodo(task) : todo)),
+    );
   }
 
-  completeTodo(id) {
-    const todo = this.todoList.find((todo) => todo.id === id);
-    todo.toggleComplete();
-    return this.todoList;
+  completeTodo(todoList, id, setTodoList) {
+    setTodoList(
+      todoList.map((todo) => (todo.id === id ? todo.toggleComplete() : todo)),
+    );
+  }
+
+  editTodo(todoList, id, setTodoList) {
+    setTodoList(
+      todoList.map((todo) => (todo.id === id ? todo.toggleEdit() : todo)),
+    );
   }
 }

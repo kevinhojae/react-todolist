@@ -1,31 +1,27 @@
 import { useState, useRef, useEffect } from "react";
 
-const Todo = ({ todo, onComplete, onDelete, updateTodolist }) => {
+const Todo = ({ todo, updateTodo, removeTodo, completeTodo, editTodo }) => {
   const [todoInput, setTodoInput] = useState(todo.task);
-  const [isEditing, setIsEditing] = useState(false);
-  // const editSpace = useRef(null);
+  const isEditing = todo.getIsEditing();
+  const editSpace = useRef(null);
 
   useEffect(() => {
     if (isEditing) {
-      // editSpace.current.focus();
+      editSpace.current.focus();
     }
   }, [isEditing]);
 
   // edit의 경우, 여러 개를 동시에 수정할 수 있어야 하므로 Todo component 내에서 관리
   // 👍🏻
   const handleEditClick = () => {
-    setIsEditing(true);
+    editTodo(todo.id);
     console.log("start edit");
   };
 
   // 👍🏻// 👍🏻// 👍🏻// 👍🏻// 👍🏻// 👍🏻
   const handleSaveClick = () => {
-    setIsEditing(false);
-    updateTodolist((prevTodolist) =>
-      prevTodolist.map((prevTodo) =>
-        prevTodo.id === todo.id ? { ...prevTodo, task: todoInput } : prevTodo
-      )
-    );
+    editTodo(todo.id);
+    updateTodo(todo.id, todoInput);
     console.log("save edit");
   };
 
@@ -36,7 +32,7 @@ const Todo = ({ todo, onComplete, onDelete, updateTodolist }) => {
           className="todo-check"
           type="checkbox"
           checked={todo.isCompleted}
-          onClick={() => onComplete(todo)}
+          onClick={() => completeTodo(todo.id)}
           readOnly
         />
         {isEditing ? (
@@ -44,6 +40,7 @@ const Todo = ({ todo, onComplete, onDelete, updateTodolist }) => {
             type="text"
             value={todoInput}
             onChange={(e) => setTodoInput(e.target.value)}
+            ref={editSpace}
           ></input>
         ) : (
           <p>{todo.task}</p>
@@ -55,7 +52,7 @@ const Todo = ({ todo, onComplete, onDelete, updateTodolist }) => {
           {isEditing ? "📥" : "✏️"}
         </button>
 
-        <button className="delete" onClick={() => onDelete(todo)}>
+        <button className="delete" onClick={() => removeTodo(todo.id)}>
           🗑️
         </button>
       </div>

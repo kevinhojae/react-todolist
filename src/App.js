@@ -22,23 +22,36 @@ function App({ todoListService }) {
     todoListService.addTodo(newTodo, setTodoList);
   };
 
+  const handleRemoveTodo = (id) => {
+    todoListService.removeTodo(todoList, id, setTodoList);
+  };
+
   const handleUpdateTodo = (id, task) => {
-    todoListService.updateTodo(id, task);
+    todoListService.updateTodo(todoList, id, task, setTodoList);
   };
 
   const handleCompleteToggle = (id) => {
-    todoListService.handleCompleteToggle(id);
+    todoListService.completeTodo(todoList, id, setTodoList);
+  };
+
+  const handleEditToggle = (id) => {
+    todoListService.editTodo(todoList, id, setTodoList);
   };
 
   return (
-    <>
+    <TodoContext.Provider value={todoList}>
       <header className="header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="title">ToDo List</h1>
       </header>
-      <CreateTodo onAddTodo={setTodoList} />
-      <TodoListContainer todoList={todoList} updateTodolist={setTodoList} />
-    </>
+      <CreateTodo onAddTodo={handleAddTodo} />
+      <TodoListContainer
+        updateTodo={handleUpdateTodo}
+        removeTodo={handleRemoveTodo}
+        completeTodo={handleCompleteToggle}
+        editTodo={handleEditToggle}
+      />
+    </TodoContext.Provider>
   );
 }
 
