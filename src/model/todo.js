@@ -12,10 +12,9 @@ export default class Todo {
     return this;
   }
 
-  getIsEditing(){
+  getIsEditing() {
     return this.isEditing;
   }
-  
 
   updateTodo(task) {
     this.task = task;
@@ -31,4 +30,8 @@ export default class Todo {
     this.isEditing = !this.isEditing;
     return this;
   }
+}
+
+export class CompletedTodoCount {
+  static num = 0;
 }

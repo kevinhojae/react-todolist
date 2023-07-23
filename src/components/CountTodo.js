@@ -1,4 +1,9 @@
-const CountTodo = ({ count }) => {
+import { useContext } from "react";
+import { CompletedTodoCount } from "../model/todo";
+import { TodoContext } from "../App";
+
+const CountTodo = () => {
+  const { todoList } = useContext(TodoContext);
   return (
     <div className="box">
       <table className="count-table">
@@ -12,13 +17,13 @@ const CountTodo = ({ count }) => {
         <tbody>
           <tr>
             <td>
-              <b>{count.completed + count.notCompleted}</b>
+              <b>{todoList.length}</b>
             </td>
             <td>
-              <b>{count.notCompleted}</b>
+              <b>{todoList.length - CompletedTodoCount.num}</b>
             </td>
             <td>
-              <b>{count.completed}</b>
+              <b>{CompletedTodoCount.num}</b>
             </td>
           </tr>
         </tbody>

@@ -9,7 +9,7 @@ const TodoList = ({
   completeTodo,
   editTodo,
 }) => {
-  const todoList = useContext(TodoContext);
+  const { todoList } = useContext(TodoContext);
 
   // Early Return
   if (todoList.length === 0) {

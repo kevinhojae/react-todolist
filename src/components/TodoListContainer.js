@@ -12,11 +12,13 @@ const TodoListContainer = ({
 
   // updateCount,
 }) => {
-  const  todoList  = useContext(TodoContext);
+  const { todoList } = useContext(TodoContext);
   const [selectedFilter, setSelectedFilter] = useState(FILTER_OPTION.ALL);
   const [filteredTodoList, setFilteredTodoList] = useState(todoList);
 
   useEffect(() => {
+    // Q. filter도 logic으로 생각할 수 있는데, Service에 포함시키는 것이 맞을지?
+    // 그런데, Service에 포함시키기 위해서는 TodoListService가 여기까지 prop으로 전달되어야 함. (filteredTodoList를 setFilteredTodoList로 업데이트 하기 위해서)
     setFilteredTodoList(
       todoList.filter((todo) => {
         if (selectedFilter === FILTER_OPTION.NOT_COMPLETED) {

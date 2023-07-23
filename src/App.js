@@ -5,6 +5,7 @@ import "./style/App.css";
 import CreateTodo from "./components/CreateTodo";
 import TodoListContainer from "./components/TodoListContainer";
 import Todo from "./model/todo";
+import CountTodo from "./components/CountTodo";
 
 export const TodoContext = React.createContext(null);
 
@@ -39,7 +40,7 @@ function App({ todoListService }) {
   };
 
   return (
-    <TodoContext.Provider value={todoList}>
+    <TodoContext.Provider value={{ todoList }}>
       <header className="header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="title">ToDo List</h1>
@@ -51,6 +52,7 @@ function App({ todoListService }) {
         completeTodo={handleCompleteToggle}
         editTodo={handleEditToggle}
       />
+      <CountTodo />
     </TodoContext.Provider>
   );
 }
